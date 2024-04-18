@@ -6,8 +6,10 @@ import HomeComp from './Component/HomeComp';
 import ProductComp from './Component/ProductComp';
 import { Navbar, Container, Badge, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Store } from './StoreProvider';
+import { Store } from './Component/StoreProvider';
 import { useContext } from 'react';
+import CartComp from './Component/CartComp';
+import SigninComp from './Component/SigninComp';
 
 function App() {
   const { state } = useContext(Store);
@@ -38,7 +40,9 @@ function App() {
           <Container className="mt-3">
             <Routes>
               <Route path="/" element={<HomeComp />}></Route>
+              <Route path="/cart" element={<CartComp />}></Route>
               <Route path="/product/:slug" element={<ProductComp />}></Route>
+              <Route path="/signin" element={<SigninComp />}></Route>
             </Routes>
           </Container>
         </main>

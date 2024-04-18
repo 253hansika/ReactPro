@@ -10,13 +10,13 @@ import {
   ListGroupItem,
   Row,
 } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Rating from './Rating';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import getError from '../getError';
-import { Store } from '../StoreProvider';
+import { Store } from './StoreProvider';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -32,6 +32,7 @@ const reducer = (state, action) => {
 };
 
 const ProductComp = () => {
+  const navigate = useNavigate();
   const { slug } = useParams();
 
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
@@ -69,6 +70,8 @@ const ProductComp = () => {
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity },
     });
+
+    navigate('/cart');
   };
 
   return loading ? (
