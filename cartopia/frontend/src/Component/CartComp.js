@@ -24,7 +24,7 @@ const CartComp = () => {
       window.alert('soryy , Product is out of stock');
       return;
     }
-
+    console.log('hello');
     ctxDispatch({
       type: 'CART_ADD_ITEM',
       payload: { ...item, quantity },
@@ -47,6 +47,7 @@ const CartComp = () => {
         <title>Shopping Cart</title>
       </Helmet>
       <h1>Shoppping cart </h1>
+
       <Row>
         <Col md={8}>
           {cartItems.length === 0 ? (
@@ -84,7 +85,7 @@ const CartComp = () => {
                         variant="secondary"
                         disabled={item.quantity === item.countInStock}
                       >
-                        <i class="fa fa-plus-circle"></i>
+                        <i className="fa fa-plus-circle"></i>
                       </Button>
                     </Col>
                     <Col md={3}>

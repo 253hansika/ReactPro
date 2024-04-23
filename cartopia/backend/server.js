@@ -21,32 +21,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/api/products', (req, res) => {
-  res.send(data.products);
-});
-
-app.get('/api/products/slug/:slug', (req, res) => {
-  const product = data.products.find(
-    (slugdata) => slugdata.slug === req.params.slug
-  );
-  if (product) {
-    res.send(product);
-  } else {
-    res.status(404).send({ message: 'Product not found' });
-  }
-});
-
-app.get('/api/products/:id', (req, res) => {
-  const product = data.products.find((x) => x._id === req.params.id);
-  if (product) {
-    res.send(product);
-  } else {
-    res.status(404).send({ message: 'Product not found' });
-  }
-});
-
-app.use('/api/products', productRouter);
 app.use('/api/seed', seedRouter);
+app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 
 app.use((err, req, res, next) => {
@@ -55,5 +31,6 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
+  console.log('ghello');
   console.log(`server at http://localhost:${port}`);
 });

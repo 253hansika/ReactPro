@@ -33,7 +33,8 @@ const reducer = (state, action) => {
 
 const ProductComp = () => {
   const navigate = useNavigate();
-  const { slug } = useParams();
+  const params = useParams();
+  const { slug } = params;
 
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -48,6 +49,7 @@ const ProductComp = () => {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
+        console.log('error in productcomp');
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
@@ -58,14 +60,19 @@ const ProductComp = () => {
   const { cart } = state;
 
   const addToCartHandler = async () => {
+    console.log('Product:', product);
+    console.log('Cart Items:', cart.cartItems);
     const existItem = cart.cartItems.find((x) => x._id == product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
+
     const { data } = await axios.get(`/api/products/${product._id}`);
 
+    console.log('hello2');
     if (data.countInStock < quantity) {
       window.alert('sorry.product is out of stock');
       return;
     }
+
     ctxDispatch({
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity },

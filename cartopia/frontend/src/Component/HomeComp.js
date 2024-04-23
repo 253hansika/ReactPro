@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 //mport data from '../data';
 
 import axios from 'axios';
@@ -18,7 +18,7 @@ const reducer = (state, action) => {
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
-      return state; //return ciurrent state
+      return state; //return current state
   }
 };
 
@@ -33,9 +33,11 @@ const HomeComp = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
+        console.log('i am in home');
         const result = await axios.get('/api/products');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
+        console.log('i am in home error');
         dispatch({ type: 'FETCH_FAIL', payload: err.message });
       }
 
